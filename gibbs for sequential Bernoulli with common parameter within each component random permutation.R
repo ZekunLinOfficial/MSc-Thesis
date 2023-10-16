@@ -20,11 +20,11 @@ grade13_data <- fulldata[fulldata$grade==13,]
 
 #choose the data of different grades for simulation
 
-mydata <- fulldata
+mydata <- grade3_data
 
 #index for tasks of interest
 
-interest <- 5:7
+interest <- 2:4
 
 
 #run the following to reset the seed since we load a saved data
@@ -68,7 +68,7 @@ n <- nrow(mydata)
 
 #dimension of observations
 
-m <- 3
+m <- length(interest)
 
 #number of components
 
@@ -80,7 +80,7 @@ w <- matrix(0,iteration,k)
 
 #initial setting of proportions
 
-initial_value_for_w <- rep(1/k,k) 
+initial_value_for_w <- c(0.1,0.9)
 
 for (i in 1:k){
   w[1,i] <- initial_value_for_w[i]           
@@ -104,7 +104,7 @@ theta <- matrix(0,iteration,k)
 
 #initial success odds
 
-initial_value_for_theta <- rep(0.5,k)
+initial_value_for_theta <- c(0.75,0.25)
 
 for (j in 1:k){
   theta[1,j] <- initial_value_for_theta[j]           
@@ -257,11 +257,3 @@ for (l in 2:iteration) {
 }
 
 
-pdf("plots_all_grade_risk_averse_sequential_Bernoulli_20000_random_permutation_simulations.pdf",width = 8, height = 6)
-plot(w[,1],type = "l",xlab = "iteration",ylab = "omega_1",ylim = c(0,1),cex.lab = 1.5)
-plot(w[,2],type = "l",xlab = "iteration",ylab = "omega_2",ylim = c(0,1),cex.lab = 1.5)
-plot(theta[,1],type = "l",xlab = "iteration",ylab = "theta_1",ylim = c(0,1),cex.lab = 1.5)
-plot(theta[,2],type = "l",xlab = "iteration",ylab = "theta_2",ylim = c(0,1),cex.lab = 1.5)
-dev.off()
-
-hist(w[,2], breaks = 30, col = 'blue', main = 'Histogram of MCMC Samples', xlab = 'Parameter Values', ylab = 'Density')

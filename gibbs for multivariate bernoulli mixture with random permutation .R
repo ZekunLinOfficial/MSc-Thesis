@@ -57,7 +57,7 @@ idenfunction = function(x,y){
 
 #iteration of simulation
 
-iteration <- 1000
+iteration <- 5000
 
 #number of observation
 
@@ -66,7 +66,7 @@ n <- nrow(mydata)
 
 #m is the dimension of observations
 
-m <- 3
+m <- length(interest)
 
 #generate the H_m matrix
 
@@ -265,16 +265,4 @@ for (l in 2:iteration) {
   }
   print(l)
 }
-
-variables_in_theta_for_plot <- rep(0,iteration)
-
-for (l in 1:iteration){
-  variables_in_theta_for_plot[l] <- theta[,,l][1,1] 
-  
-}
-
-plot(variables_in_theta_for_plot, xlab= "iteration",ylab= "theta" ,type = "l")
-
-plot(w[,1],type = "l")
-plot(w[,2],type = "l")
 

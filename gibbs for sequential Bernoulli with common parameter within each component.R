@@ -20,7 +20,7 @@ grade13_data <- fulldata[fulldata$grade==13,]
 
 #choose the data of different grades for simulation
 
-mydata <- grade8_data
+mydata <- school1_data
 
 #index for tasks of interest
 
@@ -59,7 +59,7 @@ idenfunction = function(x,y){
 
 #iteration of simulation
 
-iteration <- 5000
+iteration <- 20000
 
 #number of observation
 
@@ -67,7 +67,7 @@ n <- nrow(mydata)
 
 #dimension of observations
 
-m <- 3
+m <- length(interest)
 
 #number of components
 
@@ -111,10 +111,10 @@ for (i in 1:k){
 
 #hyper-parameters for the priors
 
-#prior for Dirichlet of componential proportions  
+#prior for Dirichlet of componential weights  
 delta <- rep(2,k)
 
-#prior for Beta of common success odds, and there is k components
+#prior for Beta of common success odds, there is k components
 
 alpha <- rep(0,k)
 beta <- rep(0,k)
@@ -200,15 +200,6 @@ for (l in 2:iteration) {
   }
   
   print(l)
-}
-
-
-#identifiability constraint
-
-for (l in 1:iteration){
-  sorted_indices <- order(theta[l, ])
-  sorted_row <- theta[l, sorted_indices]
-  theta[l, ] <- sorted_row
 }
 
 
